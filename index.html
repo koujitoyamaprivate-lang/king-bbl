@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KING・BBL 動画アーカイブ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0d0d; --panel:#1a1a1a; --line:#2f2f2f; --ink:#f7efe0; --mute:#a9a39a;
+  --amber:#f4a13a; --red:#e2342f; --cream:#f7efe0; --sky:#a9c8ea; --violet:#8e3fb0; --blue:#2f5fc4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New",system-ui,sans-serif;line-height:1.6;
+  min-height:100vh}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* hero */
+header{padding:0 0 28px;border-bottom:1px solid var(--line)}
+.hero{display:block;width:100%;max-width:1280px;margin:0 auto;aspect-ratio:1280/760;object-fit:cover}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.intro{padding-top:26px}
+.stripe{height:8px;background:linear-gradient(90deg,var(--amber) 0 20%,var(--sky) 20% 40%,var(--red) 40% 60%,var(--violet) 60% 80%,var(--blue) 80%)}
+.kicker{font-size:12px;letter-spacing:.3em;color:var(--amber);text-transform:uppercase;margin-bottom:8px}
+h1{font-family:"Dela Gothic One",sans-serif;font-weight:400;font-size:clamp(44px,9vw,104px);line-height:.95;margin:10px 0 14px;
+  background:linear-gradient(180deg,var(--cream),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 span{color:var(--red);-webkit-text-fill-color:var(--red)}
+.lead{max-width:620px;color:var(--mute);font-size:15px}
+.lead b{color:var(--ink)}
+.members{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.member{border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:13px;background:#1a140f}
+.member i{font-style:normal;color:var(--amber);font-size:11px;letter-spacing:.08em;margin-right:6px}
+.stats{display:flex;gap:28px;margin-top:28px;flex-wrap:wrap}
+.stat b{display:block;font-family:"Dela Gothic One";font-weight:400;font-size:34px;color:var(--amber);line-height:1}
+.stat span{font-size:12px;color:var(--mute)}
+
+/* controls */
+.controls{position:sticky;top:0;z-index:5;background:rgba(20,16,12,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{background:none;border:0;color:var(--mute);padding:8px 14px;font:inherit;font-size:14px;cursor:pointer}
+.seg button.on{background:var(--amber);color:#1a1006;font-weight:700}
+input[type=search]{flex:1;min-width:180px;background:#1a140f;border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:9px 14px;font:inherit;font-size:14px}
+input[type=search]:focus{outline:2px solid var(--amber);outline-offset:-1px}
+.sort{background:#1a140f;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit;font-size:14px;cursor:pointer}
+.vocals{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;max-height:64px;overflow:auto}
+.vchip{background:none;border:1px solid var(--line);color:var(--mute);border-radius:999px;padding:2px 10px;font:inherit;font-size:12px;cursor:pointer}
+.vchip.on{border-color:var(--sky);color:#0d0d0d;background:var(--sky)}
+
+/* grid */
+main{padding:28px 0 60px}
+.year{font-family:"Dela Gothic One";font-weight:400;font-size:28px;color:var(--sky);margin:30px 0 14px;display:flex;align-items:center;gap:14px}
+.year::after{content:"";flex:1;height:1px;background:var(--line)}
+.year small{font-family:"Zen Kaku Gothic New";font-size:13px;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .15s,border-color .15s}
+.card:hover{transform:translateY(-3px);border-color:var(--sky)}
+.art{height:118px;position:relative;display:flex;align-items:flex-end;padding:12px 14px;overflow:hidden}
+.art .no{z-index:1;position:absolute;right:10px;top:4px;font-family:"Dela Gothic One";font-size:54px;opacity:.18;line-height:1}
+.art .song{z-index:1;font-family:"Dela Gothic One";font-weight:400;font-size:21px;line-height:1.15;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.35);position:relative}
+.play{z-index:1;position:absolute;left:14px;top:12px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.35);display:grid;place-items:center}
+.play::before{content:"";border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent;margin-left:3px}
+.badge{z-index:1;position:absolute;left:56px;top:18px;background:var(--red);color:#fff;font-size:10px;font-weight:700;letter-spacing:.12em;padding:2px 8px;border-radius:4px}
+.meta{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.artist{font-size:13px;color:var(--mute)}
+.feat{font-size:15px;font-weight:700}
+.feat em{font-style:normal;color:var(--amber);font-size:12px;margin-right:4px}
+.foot{display:flex;justify-content:space-between;margin-top:auto;padding-top:6px;font-size:12px;color:var(--mute)}
+.art .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.art .ph+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.75))}
+body.v-photo .art{height:auto;aspect-ratio:16/9}
+body.v-photo .art svg{display:none}
+body.v-photo .art .no{display:none}
+body.v-art .art .ph,body.v-art .art .shade{display:none}
+body.v-art .grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+body.v-art .art{height:84px}
+body.v-art .art .song{font-size:16px}
+body.v-art .art .no{font-size:40px}
+body.v-art .meta{padding:8px 12px 10px;gap:2px}
+body.v-art .feat{font-size:13px}
+.empty{text-align:center;color:var(--mute);padding:60px 0}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--mute);font-size:12px}
+footer a{color:var(--amber)}
+@media (max-width:560px){.controls{position:static}.stats{gap:18px}.grid{grid-template-columns:1fr 1fr;gap:10px}.art{height:100px}.art .song{font-size:16px}.badge{left:auto;right:8px;top:auto;bottom:8px}}
+</style>
+</head>
+<body>
+<header>
+  <img class="hero" src="hero.jpg" alt="KING・BBL">
+  <div class="stripe"></div>
+  <div class="wrap intro">
+    <h1 class="sr">KING・BBL</h1>
+    <div class="kicker">🐮 Band Karaoke Archive</div>
+    <p class="lead"><b>ボーカル不在のバンド。</b>歌いたい曲をリクエストしてもらって、月に一回スタジオでバンド演奏で歌う。毎月ボーカルが変わる、遊ぶ楽器隊の記録。</p>
+    <div class="members">
+      <div class="member"><i>Gt</i>ひろろ</div>
+      <div class="member"><i>Ba</i>金さん</div>
+      <div class="member"><i>Dr</i>仁さん</div>
+      <div class="member"><i>Key</i>なっしー</div>
+      <div class="member"><i>Sax</i>なべひさ</div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap">
+    <div class="row">
+      <div class="seg" id="seg">
+        <button data-k="all" class="on">ぜんぶ</button>
+        <button data-k="studio">スタジオ</button>
+        <button data-k="live">ライブ</button>
+      </div>
+      <input type="search" id="q" placeholder="曲名・アーティスト・ボーカルで検索">
+      <button class="sort" id="sort">新しい順 ↓</button>
+      <div class="seg" id="view"><button data-v="photo" class="on">📷 サムネ</button><button data-v="art">🎨 絵柄</button></div>
+    </div>
+    <div class="vocals" id="vocals"></div>
+  </div>
+</div>
+
+<main><div class="wrap" id="list"></div></main>
+
+<footer><div class="wrap">
+  各カードをタップするとYouTubeで再生されます ・ 元ページ <a href="https://lit.link/kingbbl">lit.link/kingbbl</a> ・ YouTube <a href="https://www.youtube.com/@KING_B.B.L">KING_B.B.L</a>
+</div></footer>
+
+<script>
+// [YouTube ID, 曲名, アーティスト, ボーカル, 日付, ライブ会場(空ならスタジオ)]
+const V=[
+["9qs_tB0rRvo","いつか","Saucy Dog","なべひさ","2025-03-20","横浜Rush"],
+["I_KFbQ4ReG8","spark","THE YELLOW MONKEY","こーへー","2025-03-20","横浜Rush"],
+["e5K4FsiPWhI","ケセラセラ","Mrs. GREEN APPLE","ゆりんご","2025-02-18",""],
+["SrK62ohtO5M","怪獣の花唄","Vaundy","さおりん","2025-01-29",""],
+["1fQgUjGUZSc","ボーイフレンド","aiko","あんちゃん","2024-12-17",""],
+["x3FSuv93uxM","swim","04 Limited Sazabys","まみお","2024-11-29",""],
+["TBZTRXwC_EI","Red","Taylor Swift","ゆっこ","2024-10-09",""],
+["onZtTxo5q8c","spark","THE YELLOW MONKEY","こーへー","2024-09-12",""],
+["3UB6FnetOFw","刃","THE BACK HORN","しんごちゃん","2024-08-06",""],
+["BXNGHT-zNb4","YAH YAH YAH","CHAGE and ASKA","まっすー＆めがみん","2024-07-30",""],
+["BOSecehaqCg","home","木山裕策","トミパパ","2024-06-18",""],
+["5XGvPjFTrDs","明日晴れるかな","桑田佳祐","もとみー","2024-05-28",""],
+["HPN9IkYFoe0","恋のバカンス","ザ・ピーナッツ","ユリヤ＆うらら","2024-04-25",""],
+["RAlJGhz_HiI","Forget-me-not 〜 路上のルール","尾崎豊","善さん","2024-03-31","横浜Rush"],
+["Yd8pwaBMuvg","名前を呼ぶよ","SUPER BEAVER","ちゃっきー","2024-03-31","横浜Rush"],
+["bAWNV8FBtZE","丸の内サディスティック","東京事変","まきち","2024-03-31","横浜Rush"],
+["vJFmHCrwy6s","明日も","SHISHAMO","つかだれいな","2024-03-31","横浜Rush"],
+["3Vh-88psZ4A","Life goes on","Dragon Ash","そーし","2024-01-17",""],
+["mDYzsRUPp1E","名前を呼ぶよ","SUPER BEAVER","ちゃっきー","2023-12-12",""],
+["sr7S8vccT2M","遠くまで","Do As Infinity","なみへい","2023-11-16",""],
+["Tvfd9qGug3w","明日も","SHISHAMO","つかだれいな","2023-10-12",""],
+["WvS6wyOx5Qo","丸の内サディスティック","椎名林檎","まきち","2023-08-23",""],
+["u8D5oI2ufPA","私がオバさんになっても","森高千里","まきち","2023-08-23",""],
+["mORRfVCynWQ","オーシャンゼリゼ","洋楽","みんな","2023-07-23","ライブ"],
+["pUFspSBrZYw","群青日和","東京事変","まいまい","2023-07-24","ライブ"],
+["tGLTtXuq0rY","クラシック","JUDY AND MARY","うらら","2023-07-24","ライブ"],
+["fB906UGxJdg","ダイアモンド","プリンセス プリンセス","ひーちゃん","2023-07-24","ライブ"],
+["mXlQRUbvW8o","恋しさと せつなさと 心強さと","篠原涼子","あやひめ","2023-07-24","ライブ"],
+["Ra0_dy4CYMw","第ゼロ感","10-FEET","れいお","2023-07-24","ライブ"],
+["iFq4a1kiuM0","Mela!","緑黄色社会","なべひさ","2023-07-19",""],
+["dtoSunUZZ-4","ダイアモンド","プリンセス プリンセス","ひーちゃん","2023-06-15",""],
+["_iFoBKO6xjs","恋しさと せつなさと 心強さと","篠原涼子","あやひめ","2023-05-13",""],
+["LixIEMiswNA","クラシック","JUDY AND MARY","うらら","2023-04-19",""],
+["Q7ZETmKQ-Vs","群青日和","東京事変","まいまい","2023-03-30",""],
+["H4zhaI-JIWk","第ゼロ感","10-FEET","れいお","2023-02-17",""]
+].map(([id,song,artist,vocal,date,venue],i,a)=>({id,song,artist,vocal,date,venue,no:a.length-i}));
+
+// ボーカル名から色を決める（同じ人はいつも同じ色）
+const PAL=["#f4a13a","#a9c8ea","#e2342f","#8e3fb0","#2f5fc4","#d9567e","#e8c84a","#3c8f6a"];
+function hue(s){let h=0;for(const c of s)h=(h*31+c.codePointAt(0))%9973;return h}
+function art(seed){const a=PAL[seed%8],b=PAL[(seed>>3)%8===seed%8?(seed+3)%8:(seed>>3)%8],c=PAL[(seed>>6)%8];
+  const r=seed%4;
+  const shapes=[
+   `<polygon points="0,0 70,0 40,118 0,118" fill="${b}"/><polygon points="150,0 260,0 260,60 190,118 120,118" fill="${c}"/>`,
+   `<circle cx="210" cy="30" r="46" fill="${b}"/><polygon points="0,118 90,20 130,118" fill="${c}"/>`,
+   `<rect x="160" y="0" width="60" height="118" fill="${b}"/><polygon points="0,0 120,0 0,80" fill="${c}"/>`,
+   `<polygon points="80,0 180,0 120,118 40,118" fill="${b}"/><circle cx="230" cy="95" r="30" fill="${c}"/>`][r];
+  return `<svg viewBox="0 0 260 118" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%"><rect width="260" height="118" fill="${a}"/>${shapes}<path d="M0 118 L260 0" stroke="#111" stroke-width="5" opacity=".85"/><rect x="0" y="0" width="260" height="118" fill="rgba(0,0,0,.28)"/></svg>`}
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+const state={kind:"all",q:"",desc:true,vocal:null};
+
+// stats
+const vocals=[...new Set(V.flatMap(v=>v.vocal.split("＆")))].filter(n=>n!=="みんな");
+document.getElementById("stats").innerHTML=
+ `<div class="stat"><b>${V.length}</b><span>本の動画</span></div>
+  <div class="stat"><b>${vocals.length}</b><span>人のボーカル</span></div>
+  <div class="stat"><b>${V.filter(v=>v.venue).length}</b><span>本のライブ映像</span></div>
+  <div class="stat"><b>${V.at(-1).date.slice(0,4)}–</b><span>活動開始</span></div>`;
+
+// vocal chips (多い順)
+const count={};V.forEach(v=>v.vocal.split("＆").forEach(n=>count[n]=(count[n]||0)+1));
+const vbox=document.getElementById("vocals");
+vbox.innerHTML=Object.entries(count).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<button class="vchip" data-v="${esc(n)}">${esc(n)} ${c}</button>`).join("");
+vbox.onclick=e=>{const b=e.target.closest(".vchip");if(!b)return;state.vocal=state.vocal===b.dataset.v?null:b.dataset.v;
+  vbox.querySelectorAll(".vchip").forEach(x=>x.classList.toggle("on",x.dataset.v===state.vocal));render()};
+
+document.getElementById("seg").onclick=e=>{const b=e.target.closest("button");if(!b)return;state.kind=b.dataset.k;
+  document.querySelectorAll("#seg button").forEach(x=>x.classList.toggle("on",x===b));render()};
+document.getElementById("q").oninput=e=>{state.q=e.target.value.trim().toLowerCase();render()};
+document.getElementById("sort").onclick=e=>{state.desc=!state.desc;e.target.textContent=state.desc?"新しい順 ↓":"古い順 ↑";render()};
+
+function card(v){
+  const seed=hue(v.vocal);
+  const d=v.date.replace(/-/g,".");
+  return `<a class="card" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">
+    <div class="art">${art(seed)}<img class="ph" loading="lazy" src="thumbs/${v.id}.jpg" alt=""><span class="shade"></span>
+      <span class="no">${String(v.no).padStart(2,"0")}</span>
+      <span class="play"></span>${v.venue?`<span class="badge">LIVE</span>`:""}
+      <div class="song">${esc(v.song)}</div>
+    </div>
+    <div class="meta">
+      <div class="artist">${esc(v.artist)}</div>
+      <div class="feat"><em>feat.</em>${esc(v.vocal)}</div>
+      <div class="foot"><span>${d}</span><span>${v.venue&&v.venue!=="ライブ"?"@ "+esc(v.venue):v.venue?"ライブ":"スタジオ"}</span></div>
+    </div></a>`;
+}
+
+function render(){
+  let list=V.filter(v=>{
+    if(state.kind==="live"&&!v.venue)return false;
+    if(state.kind==="studio"&&v.venue)return false;
+    if(state.vocal&&!v.vocal.split("＆").includes(state.vocal))return false;
+    if(state.q&&!(v.song+v.artist+v.vocal).toLowerCase().includes(state.q))return false;
+    return true});
+  list.sort((a,b)=>state.desc?b.date.localeCompare(a.date):a.date.localeCompare(b.date));
+  const el=document.getElementById("list");
+  if(!list.length){el.innerHTML=`<div class="empty">見つからなかった…🐮</div>`;return}
+  const years=[...new Set(list.map(v=>v.date.slice(0,4)))];
+  el.innerHTML=years.map(y=>{const items=list.filter(v=>v.date.startsWith(y));
+    return `<div class="year">${y}<small>${items.length}本</small></div><div class="grid">${items.map(card).join("")}</div>`}).join("");
+}
+let view="photo";try{view=localStorage.getItem("kbbl-view")||"photo"}catch(e){}
+function setView(v){view=v;document.body.className="v-"+v;
+  document.querySelectorAll("#view button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+  try{localStorage.setItem("kbbl-view",v)}catch(e){}}
+document.getElementById("view").onclick=e=>{const b=e.target.closest("button");if(b)setView(b.dataset.v)};
+setView(view);
+render();
+</script>
+</body>
+</html>

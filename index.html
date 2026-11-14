@@ -113,7 +113,7 @@ footer a{color:var(--amber)}
         <button data-k="studio">スタジオ</button>
         <button data-k="live">ライブ</button>
       </div>
-      <input type="search" id="q" placeholder="曲名・アーティスト・ボーカルで検索">
+      <input type="search" id="q" placeholder="曲名・アーティスト・ボーカル・場所で検索">
       <button class="sort" id="sort">新しい順 ↓</button>
       <div class="seg" id="view"><button data-v="photo" class="on">📷 サムネ</button><button data-v="art">🎨 絵柄</button></div>
     </div>
@@ -128,22 +128,22 @@ footer a{color:var(--amber)}
 </div></footer>
 
 <script>
-// [YouTube ID, 曲名, アーティスト, ボーカル, 日付, ライブ会場(空ならスタジオ)]
+// [YouTube ID, 曲名, アーティスト, ボーカル, 日付, ライブ会場(空ならスタジオ), スタジオ名]
 const V=[
-["cf7ktLnhZCE","バラ色の日々","THE YELLOW MONKEY","善さん","2026-02-25",""],
+["cf7ktLnhZCE","バラ色の日々","THE YELLOW MONKEY","善さん","2026-02-25","","横浜ペンタ"],
 ["k8znlfQfKo8","春 -Spring-","Hysteric Blue","アキコ","2026-02-15","真昼の月 夜の太陽"],
 ["w_R1iwug8LQ","花になって -Be a flower-","緑黄色社会","ゆみねえ","2026-02-15","真昼の月 夜の太陽"],
 ["Q77zioeDvoY","つじつま合わせに生まれた僕等","amazarashi","コムくん","2026-02-15","真昼の月 夜の太陽"],
 ["q25EJAiU8KI","ケセラセラ","Mrs. GREEN APPLE","ゆりんご","2026-02-15","真昼の月 夜の太陽"],
-["hZEmYAukj7g","Real Gone","Sheryl Crow","まゆねえ","2025-12-16",""],
-["uK8TX3dp_KU","10years","渡辺美里","ミオさん","2025-10-23",""],
-["TgKWcvsnR3I","つじつま合わせに生まれた僕等","amazarashi","コムくん","2025-09-17",""],
-["BCdGPTHY8Qg","Garden","Sugar Soul","よーちゃん","2025-08-28",""],
-["zUdOsTyQ6wI","やさしさで溢れるように","JUJU","優里さん","2025-07-04",""],
-["O_h-wdvNHSg","そばかす","JUDY AND MARY","ひーちゃん","2025-06-24",""],
-["sMGMAQVcGnw","花になって -Be a flower-","緑黄色社会","ゆみねえ","2025-05-29",""],
-["cKko0WlWqFg","春 -Spring-","Hysteric Blue","アキコ","2025-05-08",""],
-["tduqxBWSbT0","青と夏","Mrs. GREEN APPLE","かごちゃん","2025-04-24",""],
+["hZEmYAukj7g","Real Gone","Sheryl Crow","まゆねえ","2025-12-16","","新宿ノア"],
+["uK8TX3dp_KU","10years","渡辺美里","ミオさん","2025-10-23","","横浜ペンタ"],
+["TgKWcvsnR3I","つじつま合わせに生まれた僕等","amazarashi","コムくん","2025-09-17","","横浜ペンタ"],
+["BCdGPTHY8Qg","Garden","Sugar Soul","よーちゃん","2025-08-28","","横浜ペンタ"],
+["zUdOsTyQ6wI","やさしさで溢れるように","JUJU","優里さん","2025-07-04","","横浜ペンタ"],
+["O_h-wdvNHSg","そばかす","JUDY AND MARY","ひーちゃん","2025-06-24","","横浜ペンタ"],
+["sMGMAQVcGnw","花になって -Be a flower-","緑黄色社会","ゆみねえ","2025-05-29","","横浜ペンタ"],
+["cKko0WlWqFg","春 -Spring-","Hysteric Blue","アキコ","2025-05-08","","新宿ノア"],
+["tduqxBWSbT0","青と夏","Mrs. GREEN APPLE","かごちゃん","2025-04-24","","初台ノア"],
 ["bFO9huEH3vY","Forget-me-not 〜 路上のルール","尾崎豊","ゼンさん","2025-03-20","横浜Rush"],
 ["C0K_r3M4fXA","My First Kiss","Hi-STANDARD","うらら","2025-03-20","横浜Rush"],
 ["pXc-f8Vli1Y","home","木山裕策","トミパパ","2025-03-20","横浜Rush"],
@@ -152,17 +152,17 @@ const V=[
 ["1KWN9nVT7IU","Red","Taylor Swift","ゆっこ","2025-03-20","横浜Rush"],
 ["9qs_tB0rRvo","いつか","Saucy Dog","なべひさ","2025-03-20","横浜Rush"],
 ["I_KFbQ4ReG8","spark","THE YELLOW MONKEY","こーへー","2025-03-20","横浜Rush"],
-["e5K4FsiPWhI","ケセラセラ","Mrs. GREEN APPLE","ゆりんご","2025-02-18",""],
-["SrK62ohtO5M","怪獣の花唄","Vaundy","さおりん","2025-01-29",""],
-["1fQgUjGUZSc","ボーイフレンド","aiko","あんちゃん","2024-12-17",""],
-["x3FSuv93uxM","swim","04 Limited Sazabys","まみお","2024-11-29",""],
-["TBZTRXwC_EI","Red","Taylor Swift","ゆっこ","2024-10-09",""],
-["onZtTxo5q8c","spark","THE YELLOW MONKEY","こーへー","2024-09-12",""],
-["3UB6FnetOFw","刃","THE BACK HORN","しんごちゃん","2024-08-06",""],
-["BXNGHT-zNb4","YAH YAH YAH","CHAGE and ASKA","まっすー＆めがみん","2024-07-30",""],
-["BOSecehaqCg","home","木山裕策","トミパパ","2024-06-18",""],
-["5XGvPjFTrDs","明日晴れるかな","桑田佳祐","もとみー","2024-05-28",""],
-["HPN9IkYFoe0","恋のバカンス","ザ・ピーナッツ","ユリヤ＆うらら","2024-04-25",""],
+["e5K4FsiPWhI","ケセラセラ","Mrs. GREEN APPLE","ゆりんご","2025-02-18","","新宿ノア"],
+["SrK62ohtO5M","怪獣の花唄","Vaundy","さおりん","2025-01-29","","横浜ペンタ"],
+["1fQgUjGUZSc","ボーイフレンド","aiko","あんちゃん","2024-12-17","","新宿ノア"],
+["x3FSuv93uxM","swim","04 Limited Sazabys","まみお","2024-11-29","","横浜セーラスタジオ"],
+["TBZTRXwC_EI","Red","Taylor Swift","ゆっこ","2024-10-09","","横浜ペンタ"],
+["onZtTxo5q8c","spark","THE YELLOW MONKEY","こーへー","2024-09-12","","横浜ペンタ"],
+["3UB6FnetOFw","刃","THE BACK HORN","しんごちゃん","2024-08-06","","横浜ペンタ"],
+["BXNGHT-zNb4","YAH YAH YAH","CHAGE and ASKA","まっすー＆めがみん","2024-07-30","","横浜ペンタ"],
+["BOSecehaqCg","home","木山裕策","トミパパ","2024-06-18","","横浜ペンタ"],
+["5XGvPjFTrDs","明日晴れるかな","桑田佳祐","もとみー","2024-05-28","","横浜ペンタ"],
+["HPN9IkYFoe0","恋のバカンス","ザ・ピーナッツ","ユリヤ＆うらら","2024-04-25","","横浜ペンタ"],
 ["ltJA5JDm0sA","明日晴れるかな","桑田佳祐","もとみー","2024-09-01","立川heart beat"],
 ["ux6VIiwXueA","遠くまで","Do As Infinity","なみへい","2024-09-01","立川heart beat"],
 ["466iD2p8r_E","My First Kiss","Hi-STANDARD","うらら","2024-09-01","立川heart beat"],
@@ -172,25 +172,25 @@ const V=[
 ["Yd8pwaBMuvg","名前を呼ぶよ","SUPER BEAVER","ちゃっきー","2024-03-31","横浜Rush"],
 ["bAWNV8FBtZE","丸の内サディスティック","東京事変","まきち","2024-03-31","横浜Rush"],
 ["vJFmHCrwy6s","明日も","SHISHAMO","つかだれいな","2024-03-31","横浜Rush"],
-["3Vh-88psZ4A","Life goes on","Dragon Ash","そーし","2024-01-17",""],
-["mDYzsRUPp1E","名前を呼ぶよ","SUPER BEAVER","ちゃっきー","2023-12-12",""],
-["sr7S8vccT2M","遠くまで","Do As Infinity","なみへい","2023-11-16",""],
-["Tvfd9qGug3w","明日も","SHISHAMO","つかだれいな","2023-10-12",""],
-["WvS6wyOx5Qo","丸の内サディスティック","椎名林檎","まきち","2023-08-23",""],
-["u8D5oI2ufPA","私がオバさんになっても","森高千里","まきち","2023-08-23",""],
+["3Vh-88psZ4A","Life goes on","Dragon Ash","そーし","2024-01-17","","横浜ペンタ"],
+["mDYzsRUPp1E","名前を呼ぶよ","SUPER BEAVER","ちゃっきー","2023-12-12","","横浜ペンタ"],
+["sr7S8vccT2M","遠くまで","Do As Infinity","なみへい","2023-11-16","","横浜ペンタ"],
+["Tvfd9qGug3w","明日も","SHISHAMO","つかだれいな","2023-10-12","","横浜ペンタ"],
+["WvS6wyOx5Qo","丸の内サディスティック","椎名林檎","まきち","2023-08-23","","横浜ペンタ"],
+["u8D5oI2ufPA","私がオバさんになっても","森高千里","まきち","2023-08-23","","横浜ペンタ"],
 ["mORRfVCynWQ","オーシャンゼリゼ","洋楽","みんな","2023-07-23","ライブ"],
 ["pUFspSBrZYw","群青日和","東京事変","まいまい","2023-07-24","ライブ"],
 ["tGLTtXuq0rY","クラシック","JUDY AND MARY","うらら","2023-07-24","ライブ"],
 ["fB906UGxJdg","ダイアモンド","プリンセス プリンセス","ひーちゃん","2023-07-24","ライブ"],
 ["mXlQRUbvW8o","恋しさと せつなさと 心強さと","篠原涼子","あやひめ","2023-07-24","ライブ"],
 ["Ra0_dy4CYMw","第ゼロ感","10-FEET","れいお","2023-07-24","ライブ"],
-["iFq4a1kiuM0","Mela!","緑黄色社会","なべひさ","2023-07-19",""],
-["dtoSunUZZ-4","ダイアモンド","プリンセス プリンセス","ひーちゃん","2023-06-15",""],
-["_iFoBKO6xjs","恋しさと せつなさと 心強さと","篠原涼子","あやひめ","2023-05-13",""],
-["LixIEMiswNA","クラシック","JUDY AND MARY","うらら","2023-04-19",""],
-["Q7ZETmKQ-Vs","群青日和","東京事変","まいまい","2023-03-30",""],
-["H4zhaI-JIWk","第ゼロ感","10-FEET","れいお","2023-02-17",""]
-].sort((x,y)=>y[4].localeCompare(x[4])).map(([id,song,artist,vocal,date,venue],i,a)=>({id,song,artist,vocal,date,venue,no:a.length-i}));
+["iFq4a1kiuM0","Mela!","緑黄色社会","なべひさ","2023-07-19","","横浜ペンタ"],
+["dtoSunUZZ-4","ダイアモンド","プリンセス プリンセス","ひーちゃん","2023-06-15","","横浜ペンタ"],
+["_iFoBKO6xjs","恋しさと せつなさと 心強さと","篠原涼子","あやひめ","2023-05-13","","新宿ノア"],
+["LixIEMiswNA","クラシック","JUDY AND MARY","うらら","2023-04-19","","横浜ペンタ"],
+["Q7ZETmKQ-Vs","群青日和","東京事変","まいまい","2023-03-30","","横浜ペンタ"],
+["H4zhaI-JIWk","第ゼロ感","10-FEET","れいお","2023-02-17","","横浜ペンタ"]
+].sort((x,y)=>y[4].localeCompare(x[4])).map(([id,song,artist,vocal,date,venue,studio=""],i,a)=>({id,song,artist,vocal,date,venue,studio,no:a.length-i}));
 
 // ボーカル名から色を決める（同じ人はいつも同じ色）
 const PAL=["#f4a13a","#a9c8ea","#e2342f","#8e3fb0","#2f5fc4","#d9567e","#e8c84a","#3c8f6a"];
@@ -239,7 +239,7 @@ function card(v){
     <div class="meta">
       <div class="artist">${esc(v.artist)}</div>
       <div class="feat"><em>feat.</em>${esc(v.vocal)}</div>
-      <div class="foot"><span>${d}</span><span>${v.venue&&v.venue!=="ライブ"?"@ "+esc(v.venue):v.venue?"ライブ":"スタジオ"}</span></div>
+      <div class="foot"><span>${d}</span><span>${v.venue&&v.venue!=="ライブ"?"@ "+esc(v.venue):v.venue?"ライブ":v.studio?"🎙 "+esc(v.studio):"スタジオ"}</span></div>
     </div></a>`;
 }
 
@@ -248,7 +248,7 @@ function render(){
     if(state.kind==="live"&&!v.venue)return false;
     if(state.kind==="studio"&&v.venue)return false;
     if(state.vocal&&!v.vocal.split("＆").includes(state.vocal))return false;
-    if(state.q&&!(v.song+v.artist+v.vocal).toLowerCase().includes(state.q))return false;
+    if(state.q&&!(v.song+v.artist+v.vocal+v.venue+v.studio).toLowerCase().includes(state.q))return false;
     return true});
   list.sort((a,b)=>state.desc?b.date.localeCompare(a.date):a.date.localeCompare(b.date));
   const el=document.getElementById("list");
